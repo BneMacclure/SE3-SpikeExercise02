@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import {Text, TouchableOpacity, View} from "react-native";
 import {mainPageStyles} from '../config/Styles';
 
-const Ticket = () => {
+const Ticket = (title) => {
     return (
         <TouchableOpacity style={mainPageStyles.touchyBtn}>
-            <Text>Example Title</Text>
+            <Text>{title}</Text>
         </TouchableOpacity>
     );
 }

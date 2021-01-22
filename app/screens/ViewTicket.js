@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {Text, TouchableOpacity, View, TextInput} from "react-native";
 import {viewTicketStyles} from '../config/Styles';
+import * as firebase from 'firebase';
 
 export const ViewTicket = ({navigation}) => {
     const closeTicket = () => navigation.navigate('Ticket Feed'); // ToDo: add in closing the ticket, and adding the answer
@@ -42,7 +43,7 @@ export const ViewTicket = ({navigation}) => {
                 />
             </View>
 
-            <TouchableOpacity style={viewTicketStyles.touchyBtn} onclick={closeTicket}>
+            <TouchableOpacity style={viewTicketStyles.touchyBtn} onPress={closeTicket}>
                 <Text>CLOSE TICKET</Text>
             </TouchableOpacity>
         </View>
