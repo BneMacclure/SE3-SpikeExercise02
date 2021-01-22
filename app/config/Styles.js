@@ -80,12 +80,40 @@ const createTicketStyles = StyleSheet.create({
  * Styling for the ViewTicket screen
  */
 const viewTicketStyles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "#696969"
-    },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#696969"
+  },
+
+  touchyBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#2196f3",
+  },
+
+  TextInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    marginLeft: 20,
+    color: '#2196f3',
+    justifyContent: "flex-start",
+  },
+
+  inputView: {
+    backgroundColor: "#a9a9a9",
+    borderRadius: 30,
+    width: "80%",
+    height: 100,
+    marginBottom: 40,
+    alignItems: "flex-start",
+  },
 });
 
 /**

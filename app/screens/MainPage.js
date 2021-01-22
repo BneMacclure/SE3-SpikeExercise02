@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {ScrollView, Text, Button, TouchableOpacity, View} from "react-native";
 import {mainPageStyles} from '../config/Styles';
+import {Ticket} from '../components/Ticket';
 
 
 
@@ -14,15 +15,7 @@ export const MainPage = ({navigation}) => {
           <Text style={mainPageStyles.header}>TICKET FEED</Text>
         </View>
         <ScrollView contentContainerStyle={mainPageStyles.ticketFeedView}>
-          <TouchableOpacity style={mainPageStyles.touchyBtn}>
-            <Text>Example</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={mainPageStyles.touchyBtn}>
-            <Text>Example</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={mainPageStyles.touchyBtn}>
-            <Text>Example</Text>
-          </TouchableOpacity>
+          <Ticket/>                                
         </ScrollView>
         <View style={{paddingBottom: 50, width: 250, alignItems: 'center'}}>
           <TouchableOpacity style={mainPageStyles.touchyBtn} onPress={navToCreateTicket}>
