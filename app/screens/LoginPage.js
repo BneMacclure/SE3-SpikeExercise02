@@ -6,14 +6,32 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import {loginPageStyles} from '../config/Styles';
+import * as firebase from 'firebase';
 
 
 export const LoginPage = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navToMain = () => navigation.navigate('Ticket Feed');
+    const loginFunc = () => {
+      // check if valid login
+      firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => navigation.navigate('Ticket Feed'))
+      .catch(error => Alert.alert(
+          "Login",
+          "Invalid login information",
+          [
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ],
+          { cancelable: false }
+        )
+      )
+    };
     
     return (
         <View style={loginPageStyles.container}>
@@ -40,7 +58,7 @@ export const LoginPage = ({navigation}) => {
           />
         </View>
   
-        <TouchableOpacity style={loginPageStyles.loginBtn} onPress={navToMain}>
+        <TouchableOpacity style={loginPageStyles.loginBtn} onPress={loginFunc}>
           <Text style={loginPageStyles.loginText}>LOGIN</Text>
         </TouchableOpacity>
       </View>

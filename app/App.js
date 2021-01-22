@@ -9,15 +9,18 @@ import {
   StyleSheet,
 } from "react-native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import {DatabaseConfig} from './config/DatabaseConfig';
+import * as firebase from 'firebase';
 
  
 const Drawer = createDrawerNavigator();
+let initRoute = "Login";
 
 function App() {
+
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Login">
+      <Drawer.Navigator initialRouteName={initRoute}>
         <Drawer.Screen 
           name="Ticket Feed" 
           component={MainPage} />

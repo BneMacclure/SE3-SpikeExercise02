@@ -1,13 +1,33 @@
 import React, { useState } from "react";
 import {Text, TouchableOpacity, View, TextInput} from "react-native";
 import {createTicketStyles} from '../config/Styles';
+import {db, firebaseApp} from '../config/DatabaseConfig';
 
 
 
 export const CreateTicket = ({navigation}) => {
-    const submitTicket = () => navigation.navigate('Ticket Feed');
+    const componentDidMount = () => {
+        db.ref('/todos').on('value', querySnapShot => {
+          let data = querySnapShot.val() ? querySnapShot.val() : {};
+          let tickets = {...data};
+          this.setState({
+            tickets: tickets,
+          });
+        });
+      }
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const submitTicket = () => {
+        db.ref('/tickets').push({
+            title: {title},
+            description: {description},
+        }).then(() => console.log('Data sent'));
+        
+        navigation.navigate('Ticket Feed');
+    }
+    
+    
+
     return (
         <View style={createTicketStyles.container}>
             <View style={createTicketStyles.inputView}>
@@ -32,7 +52,7 @@ export const CreateTicket = ({navigation}) => {
                 />
             </View>
 
-            <TouchableOpacity style={createTicketStyles.touchyBtn} onclick={submitTicket}>
+            <TouchableOpacity style={createTicketStyles.touchyBtn} onPress={submitTicket}>
                 <Text>SUBMIT TICKET</Text>
             </TouchableOpacity>
         </View>
