@@ -5,7 +5,7 @@ import {mainPageStyles} from '../config/Styles';
 const Ticket = (title) => {
     return (
         <TouchableOpacity style={mainPageStyles.touchyBtn}>
-            <Text>{title}</Text>
+            <Text >{title}</Text>
         </TouchableOpacity>
     );
 }
