@@ -1,55 +1,60 @@
-import React, { useState } from "react";
-import {ScrollView, Text, Button, TouchableOpacity, View, FlatList} from "react-native";
+import React from "react";
+import {Text, TouchableOpacity, View, FlatList, List} from "react-native";
 import {mainPageStyles} from '../config/Styles';
-import {Ticket} from '../components/Ticket';
-import * as firebase from 'firebase';
 import {db, firebaseApp} from '../config/DatabaseConfig';
+import {Ticket} from '../components/Ticket';
 
 
-export class MainPage extends Component{
-  constructor(props) {
-    super(props);
+export class MainPage extends React.Component {
+
+  constructor(){
+    super();
+
     this.state = {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      })
-    };
+        dataArray: null,
+    }
   }
-  componentWillMount = () => {
-    this.listenForTickets(this.itemsRef);
-  }
-  navToCreateTicket = () => {navigation.navigate('Create Ticket')};
-  listenForTickets = (itemsRef) => {
-    itemsRef.on('value', (snap) => {
 
-      // get children as an array
-      var tickets = [];
-      snap.forEach((child) => {
-        tickets.push({
-          title: child.val().title,
-          desc: child.key
-        });
+  componentDidMount() {
+
+    db.ref('/tickets').on('value', (snapshot) => {
+      var returnArray = [];
+      
+      snapshot.forEach( (snap) => {
+          returnArray.push({
+            key: snap.key,
+            data: snap.val()
+          });
       });
-
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(tickets)
-      });
-
+      
+  
+      this.setState({ dataArray: returnArray })
     });
   }
 
-  renderItem = (t) => {
-    return (
-      <Ticket title={t}/>
-    )
-  }
   render () {
+    console.log(this.state.dataArray);
+    const {navigation} = this.props;
+    
+    const navToCreateTicket = () => {
+      navigation.navigate('Create Ticket');
+    }
+    
     return (
+      
       <View style={mainPageStyles.container}>
         <View style={{paddingTop: 50}}>
           <Text style={mainPageStyles.header}>TICKET FEED</Text>
         </View>
-        <FlatList datasource={this.state.dataSource} renderrow={this.renderItem.bind(this)}></FlatList>
+        <FlatList
+          data={this.state.dataArray}
+          keyExtractor={(item) => item.key}
+          renderItem={({ item }) => (
+              <Ticket
+                title={item.data.title.title} 
+              />
+          )}
+        />
         <View style={{paddingBottom: 50, width: 250, alignItems: 'center'}}>
           <TouchableOpacity style={mainPageStyles.touchyBtn} onPress={navToCreateTicket}>
             <Text>Create a Ticket</Text>
