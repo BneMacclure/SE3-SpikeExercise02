@@ -15,7 +15,6 @@ import * as firebase from 'firebase';
 export const LoginPage = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navToMain = () => navigation.navigate('Ticket Feed');
     const loginFunc = () => {
       // check if valid login
       firebase

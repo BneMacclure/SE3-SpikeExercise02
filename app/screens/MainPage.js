@@ -2,7 +2,7 @@ import React from "react";
 import {Text, TouchableOpacity, View, FlatList, List} from "react-native";
 import {mainPageStyles} from '../config/Styles';
 import {db, firebaseApp} from '../config/DatabaseConfig';
-import Ticket from '../components/Ticket';
+import {Ticket} from '../components/Ticket';
 
 
 export class MainPage extends React.Component {
@@ -11,24 +11,25 @@ export class MainPage extends React.Component {
     super();
 
     this.state = {
-        dataArray: [],
+        dataArray: null,
     }
   }
 
   componentDidMount() {
 
-    db.ref('/tickets').on('child_added', (snapshot) => {
+    db.ref('/tickets').on('value', (snapshot) => {
       var returnArray = [];
-  
+      
       snapshot.forEach( (snap) => {
-          var item = snap.val();
-          item.key = snap.key;
-  
-          returnArray.push(item);
+          returnArray.push({
+            key: snap.key,
+            data: snap.val()
+          });
       });
+      
   
       this.setState({ dataArray: returnArray })
-  });
+    });
   }
 
   render () {
@@ -47,9 +48,10 @@ export class MainPage extends React.Component {
         </View>
         <FlatList
           data={this.state.dataArray}
+          keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
               <Ticket
-                title={item.title} 
+                title={item.data.title.title} 
               />
           )}
         />

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import {Text, TouchableOpacity, View} from "react-native";
 import {mainPageStyles} from '../config/Styles';
 
-const Ticket = (title) => {
+export const Ticket = ({title}) => {
     return (
-        <TouchableOpacity style={mainPageStyles.touchyBtn}>
-            <Text >{title}</Text>
-        </TouchableOpacity>
+        <View style={mainPageStyles.ticketFeedView}>
+            <TouchableOpacity style={mainPageStyles.touchyBtn}>
+                <Text >{title}</Text>
+            </TouchableOpacity>
+        </View>
     );
 }
-
-export {Ticket}
