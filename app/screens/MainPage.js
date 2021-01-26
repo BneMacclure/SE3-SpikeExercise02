@@ -12,13 +12,14 @@ export class MainPage extends React.Component {
   constructor(){
     super();
 
+    // Important variables for the screen.
     this.state = {
-        dataArray: null,
-        key: "",
-        title: "",
-        desc: "",
-        ans: "",
-        visible: false,
+        dataArray: null, // array of tickets
+        key: "", // key of the current ticket
+        title: "", // title of the current ticket
+        desc: "", // description of the current ticket
+        ans: "", // answer of the current ticket
+        visible: false, // toggle variable for the dialog
     }
   }
 
@@ -43,13 +44,13 @@ export class MainPage extends React.Component {
     const {navigation} = this.props;
     
     console.log(this.state.dataArray);
+
     // Function to navigate to Create Ticket screen
     const navToCreateTicket = () => {
       navigation.navigate('Create Ticket');
     }
 
      // Function to close tickets
-     
      const closeTicket = () => { 
       db.ref('/tickets/'+this.state.key)
         .child("title")
@@ -76,6 +77,7 @@ export class MainPage extends React.Component {
       })
     }
 
+    // Function to handle the ok button in the popup
     const handleOk = () => {
       this.setState({visible: false})
     }
@@ -101,7 +103,7 @@ export class MainPage extends React.Component {
         />
 
         <View style={{paddingBottom: 50, width: 250, alignItems: 'center'}}>
-          <TouchableOpacity style={mainPageStyles.touchyBtn} onPress={() => navToCreateTicket}>
+          <TouchableOpacity style={mainPageStyles.touchyBtn} onPress={navToCreateTicket}>
             <Text>Create a Ticket</Text>
           </TouchableOpacity>
         </View>
