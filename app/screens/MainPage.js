@@ -5,7 +5,9 @@ import {db, firebaseApp} from '../config/DatabaseConfig';
 import {Ticket} from '../components/Ticket';
 import { Alert } from "react-native";
 
-
+/**
+ * Screen that hold the ticket feed and button for Creating a Ticket
+ */
 export class MainPage extends React.Component {
 
   constructor(){
@@ -16,6 +18,7 @@ export class MainPage extends React.Component {
     }
   }
 
+  // This is called when the component is rendered. Loads in the data for the FlatList
   componentDidMount() {
     db.ref('/tickets').on('value', (snapshot) => {
       var returnArray = [];
@@ -36,17 +39,34 @@ export class MainPage extends React.Component {
     console.log(this.state.dataArray);
     const {navigation} = this.props;
     
+    // Function to navigate to Create Ticket screen
     const navToCreateTicket = () => {
       navigation.navigate('Create Ticket');
     }
 
-    const closeTicket = (key) => {
-
+    // Function to close tickets
+    const closeTicket = (key, title) => {
+      console.log("key: "+key);
+      /*
+      let title = '';
+      for (var i = 0; i < this.state.dataArray.length; i++) {
+        if (this.state.dataArray[i].key === key) {
+          title = this.state.dataArray[i].data.title.title;
+        }
+      }
+      */
+      
+      db.ref('/tickets/'+key)
+      .child("title")
+      .update({
+        title: "CLOSED:  "+title,
+      });
     }
 
+    // Function to view a ticket in the form of an alert
     const viewTicket = (key) => {
-      var title = '';
-      var desc = '';
+      let title = '';
+      let desc = '';
       for (var i = 0; i < this.state.dataArray.length; i++) {
         console.log(this.state.dataArray[i].key);
         if (this.state.dataArray[i].key === key) {
@@ -61,12 +81,13 @@ export class MainPage extends React.Component {
         "Description: "+desc,
         [
           { text: "Ok", onPress: () => console.log("OK Pressed") },
-          { text: "Close Ticket", onPress: () => closeTicket({key}) }
+          { text: "Close Ticket", onPress: () => closeTicket(key, title) }
         ],
         { cancelable: false }
       );
     }
     
+    // Content of the screen
     return (
       
       <View style={mainPageStyles.container}>
