@@ -11,10 +11,11 @@ import {
 import {loginPageStyles} from '../config/Styles';
 import * as firebase from 'firebase';
 
-
+// React component representing my Login screen
 export const LoginPage = ({navigation}) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState(""); // email for login
+    const [password, setPassword] = useState(""); // password for login
+    // Function for login. Uses firebase authentication
     const loginFunc = () => {
       // check if valid login
       firebase
