@@ -3,12 +3,12 @@ import {Text, TouchableOpacity, View, TextInput} from "react-native";
 import {viewTicketStyles} from '../config/Styles';
 import {db, firebaseApp} from '../config/DatabaseConfig';
 
-export const ViewTicket = ({navigation}) => {
+export const ViewTicket = ({navigation}, ti, desc, ans) => {
     const closeTicket = () => navigation.navigate('Ticket Feed'); // ToDo: add in closing the ticket, and adding the answer
     // TODO: PUT IN THE FORM'S FIELDS
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [answer, setAnswer] = useState("");
+    const [title, setTitle] = useState(ti);
+    const [description, setDescription] = useState(desc);
+    const [answer, setAnswer] = useState(ans);
     return (
         <View style={viewTicketStyles.container}>
             <View style={viewTicketStyles.inputView}>

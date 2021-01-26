@@ -6,25 +6,19 @@ import {db, firebaseApp} from '../config/DatabaseConfig';
 
 
 export const CreateTicket = ({navigation}) => {
-    const componentDidMount = () => {
-        db.ref('/todos').on('value', querySnapShot => {
-          let data = querySnapShot.val() ? querySnapShot.val() : {};
-          let tickets = {...data};
-          this.setState({
-            tickets: tickets,
-          });
-        });
-      }
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [answer, setAnswer] = useState("");
     const submitTicket = () => {
         db.ref('/tickets').push({
             title: {title},
             description: {description},
+            answer: {answer}
         }).then(() => console.log('Data sent'));
         
         navigation.navigate('Ticket Feed');
     }
+
     
     
 
