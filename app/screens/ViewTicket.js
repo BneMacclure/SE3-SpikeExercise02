@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {Text, TouchableOpacity, View, TextInput} from "react-native";
 import {viewTicketStyles} from '../config/Styles';
-import * as firebase from 'firebase';
+import {db, firebaseApp} from '../config/DatabaseConfig';
 
 export const ViewTicket = ({navigation}) => {
     const closeTicket = () => navigation.navigate('Ticket Feed'); // ToDo: add in closing the ticket, and adding the answer
