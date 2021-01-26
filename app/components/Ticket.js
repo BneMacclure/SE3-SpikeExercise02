@@ -3,6 +3,8 @@ import {Text, TouchableOpacity, View} from "react-native";
 import {mainPageStyles} from '../config/Styles';
 
 export const Ticket = ({title}) => {
+
+
     return (
         <View style={mainPageStyles.ticketFeedView}>
             <TouchableOpacity style={mainPageStyles.touchyBtn}>
